@@ -6,9 +6,7 @@
   <title>臨床検査技師RPG - ホーム</title>
   <meta name="robots" content="index,follow">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -24,68 +22,14 @@
       margin: 0 auto;
     }
 
-    .title-box {
-      background: rgba(30, 41, 59, 0.95);
-      border: 2px solid #38bdf8;
-      border-radius: 18px;
-      padding: 20px 16px;
-      text-align: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-      margin-bottom: 16px;
-    }
-
-    .title-box h1 {
-      margin: 0 0 8px;
-      font-size: 26px;
-    }
-
-    .title-box p {
-      margin: 0;
-      color: #cbd5e1;
-      font-size: 14px;
-    }
-
     .card {
       background: rgba(30, 41, 59, 0.96);
       border-radius: 18px;
       padding: 18px;
       margin-bottom: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
     }
 
-    .section-title {
-      font-size: 18px;
-      margin: 0 0 12px;
-      color: #7dd3fc;
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-
-    .status-label {
-      color: #cbd5e1;
-    }
-
-    .bar {
-      width: 100%;
-      height: 18px;
-      background: #334155;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .bar-inner {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(to right, #22c55e, #86efac);
-      transition: width 0.4s ease;
-    }
+    h1 { text-align: center; }
 
     .menu-grid {
       display: grid;
@@ -96,204 +40,118 @@
     .menu-btn {
       border: none;
       border-radius: 16px;
-      padding: 18px 12px;
-      background: #334155;
+      padding: 16px;
       color: white;
       font-size: 16px;
-      font-weight: bold;
       cursor: pointer;
-      min-height: 88px;
-      transition: transform 0.15s ease, background 0.15s ease;
     }
 
-    .menu-btn:active {
-      transform: scale(0.98);
+    .quest { background: #0284c7; }
+    .equipment { background: #7c3aed; }
+    .status { background: #059669; }
+    .data { background: #ea580c; }
+
+    .bar {
+      width: 100%;
+      height: 20px;
+      background: #333;
+      border-radius: 999px;
     }
 
-    .menu-btn.quest {
-      background: #0284c7;
-    }
-
-    .menu-btn.equipment {
-      background: #7c3aed;
-    }
-
-    .menu-btn.status {
-      background: #059669;
-    }
-
-    .menu-btn.data {
-      background: #ea580c;
-    }
-
-    .menu-btn small {
-      display: block;
-      margin-top: 6px;
-      font-size: 12px;
-      font-weight: normal;
-      opacity: 0.9;
-    }
-
-    .message-box {
-      min-height: 64px;
-      line-height: 1.6;
-      color: #e2e8f0;
-      font-size: 14px;
-    }
-
-    .footer-note {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 12px;
-      margin-top: 12px;
-    }
-
-    @media (max-width: 380px) {
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
+    .bar-inner {
+      height: 100%;
+      background: lime;
+      width: 0%;
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
+<div class="container">
 
-    <div class="title-box">
-      <h1>🧪 臨床検査技師RPG</h1>
-      <p>知識を集めて、検査の冒険へ出よう</p>
-    </div>
+  <h1>🧪 検査技師RPG</h1>
 
-    <div class="card">
-      <h2 class="section-title">プレイヤー情報</h2>
+  <div class="card">
+    <div>名前：<span id="playerName">プレイヤー</span></div>
+    <div>Lv：<span id="playerLevel">1</span></div>
+    <div>EXP：<span id="playerExp">0</span></div>
 
-      <div class="status-row">
-        <span class="status-label">名前</span>
-        <span id="playerName">プレイヤー</span>
-      </div>
-
-      <div class="status-row">
-        <span class="status-label">レベル</span>
-        <span id="playerLevel">1</span>
-      </div>
-
-      <div class="status-row">
-        <span class="status-label">EXP</span>
-        <span><span id="playerExp">0</span> / <span id="nextExp">100</span></span>
-      </div>
-
-      <div class="bar">
-        <div class="bar-inner" id="expBar"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">ホームメニュー</h2>
-
-      <div class="menu-grid">
-        <button class="menu-btn quest" onclick="goQuest()">
-          ⚔️ クエスト
-          <small>問題に挑戦する</small>
-        </button>
-
-        <button class="menu-btn equipment" onclick="goEquipment()">
-          🛡️ 装備
-          <small>称号・道具を見る</small>
-        </button>
-
-        <button class="menu-btn status" onclick="showStatus()">
-          📊 ステータス
-          <small>現在の成長を見る</small>
-        </button>
-
-        <button class="menu-btn data" onclick="showSaveData()">
-          💾 データ
-          <small>保存状況を確認</small>
-        </button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">案内メッセージ</h2>
-      <div class="message-box" id="messageBox">
-        ようこそ。まずはクエストから問題に挑戦しましょう。
-      </div>
-    </div>
-
-    <div class="footer-note">
-      今はホーム画面の土台です。あとで各ページを追加できます。
+    <div class="bar">
+      <div class="bar-inner" id="expBar"></div>
     </div>
   </div>
 
-  <script>
-    let player = {
-      name: "プレイヤー",
-      exp: 0,
-      equipment: "白衣",
-      title: "見習い検査技師"
-    };
+  <div class="card">
+    <h2>ホームメニュー</h2>
 
-    const savedPlayer = localStorage.getItem("player");
-    if (savedPlayer) {
-      player = JSON.parse(savedPlayer);
-    } else {
-      localStorage.setItem("player", JSON.stringify(player));
-    }
+    <div class="menu-grid">
+      <button class="menu-btn quest" onclick="goQuest()">⚔️ クエスト</button>
+      <button class="menu-btn equipment" onclick="goEquipment()">🛡️ 装備</button>
+      <button class="menu-btn status" onclick="showStatus()">📊 ステータス</button>
+      <button class="menu-btn data" onclick="showSaveData()">💾 データ</button>
+    </div>
+  </div>
 
-    function getLevel(exp) {
-      return Math.floor(exp / 100) + 1;
-    }
+  <!-- 👇 ここが追加されたクエスト分岐 -->
+  <div class="card" id="questMenu" style="display:none;">
+    <h2>難易度選択</h2>
 
-    function getNextExp(exp) {
-      return Math.floor(exp / 100) * 100 + 100;
-    }
+    <div class="menu-grid">
+      <button class="menu-btn quest" onclick="openQuest('beginner')">🌱 初級</button>
+      <button class="menu-btn status" onclick="openQuest('intermediate')">📘 中級</button>
+      <button class="menu-btn data" onclick="openQuest('advanced')">🔥 上級</button>
+      <button class="menu-btn equipment" onclick="closeQuestMenu()">↩ 戻る</button>
+    </div>
+  </div>
 
-    function updateUI() {
-      const level = getLevel(player.exp);
-      const nextExp = getNextExp(player.exp);
-      const currentExp = player.exp % 100;
-      const percent = (currentExp / 100) * 100;
+</div>
 
-      document.getElementById("playerName").textContent = player.name;
-      document.getElementById("playerLevel").textContent = level;
-      document.getElementById("playerExp").textContent = player.exp;
-      document.getElementById("nextExp").textContent = nextExp;
-      document.getElementById("expBar").style.width = percent + "%";
-    }
+<script>
+let player = { name: "プレイヤー", exp: 0 };
 
-    function setMessage(text) {
-      document.getElementById("messageBox").textContent = text;
-    }
+if (localStorage.getItem("player")) {
+  player = JSON.parse(localStorage.getItem("player"));
+}
 
-    function goQuest() {
-      setMessage("クエスト画面へ進みます。あとで quest.html や Googleフォームへのリンクに変更できます。");
-      // 例:
-      // location.href = "quest.html";
-      // または
-      // window.open("GoogleフォームのURL", "_blank");
-    }
+function updateUI() {
+  document.getElementById("playerName").textContent = player.name;
+  document.getElementById("playerLevel").textContent = Math.floor(player.exp/100)+1;
+  document.getElementById("playerExp").textContent = player.exp;
+  document.getElementById("expBar").style.width = (player.exp % 100) + "%";
+}
 
-    function goEquipment() {
-      setMessage("装備画面へ進みます。称号、白衣、アイテム、分野別バッジなどを表示できます。");
-      // 例:
-      // location.href = "equipment.html";
-    }
+function goQuest() {
+  document.getElementById("questMenu").style.display = "block";
+}
 
-    function showStatus() {
-      const level = getLevel(player.exp);
-      setMessage(
-        "名前：" + player.name +
-        " / レベル：" + level +
-        " / 総EXP：" + player.exp +
-        " / 称号：" + (player.title || "なし")
-      );
-    }
+function closeQuestMenu() {
+  document.getElementById("questMenu").style.display = "none";
+}
 
-    function showSaveData() {
-      const exists = localStorage.getItem("player") ? "保存されています" : "未保存です";
-      setMessage("セーブデータはブラウザ内に " + exists + "。スマホでも同じ端末なら保持されます。");
-    }
+function openQuest(level) {
+  const urls = {
+    beginner: "ここに初級フォームURL",
+    intermediate: "ここに中級フォームURL",
+    advanced: "ここに上級フォームURL"
+  };
 
-    updateUI();
-  </script>
+  window.open(urls[level], "_blank");
+}
+
+function goEquipment() {
+  alert("装備画面はこれから作成");
+}
+
+function showStatus() {
+  alert("Lv: " + (Math.floor(player.exp/100)+1));
+}
+
+function showSaveData() {
+  alert("この端末に保存されています");
+}
+
+updateUI();
+</script>
+
 </body>
 </html>
