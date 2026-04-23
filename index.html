@@ -24,14 +24,19 @@
       margin: 0 auto;
     }
 
-    .title-box {
-      background: rgba(30, 41, 59, 0.95);
-      border: 2px solid #38bdf8;
+    .title-box,
+    .card {
+      background: rgba(30, 41, 59, 0.96);
       border-radius: 18px;
-      padding: 20px 16px;
-      text-align: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      padding: 18px;
       margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .title-box {
+      border: 2px solid #38bdf8;
+      text-align: center;
+      padding: 20px 16px;
     }
 
     .title-box h1 {
@@ -43,14 +48,6 @@
       margin: 0;
       color: #cbd5e1;
       font-size: 14px;
-    }
-
-    .card {
-      background: rgba(30, 41, 59, 0.96);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
     }
 
     .section-title {
@@ -97,35 +94,23 @@
       border: none;
       border-radius: 16px;
       padding: 18px 12px;
-      background: #334155;
       color: white;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
       min-height: 88px;
-      transition: transform 0.15s ease, background 0.15s ease;
       width: 100%;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
     .menu-btn:active {
       transform: scale(0.98);
     }
 
-    .menu-btn.quest {
-      background: #0284c7;
-    }
-
-    .menu-btn.equipment {
-      background: #7c3aed;
-    }
-
-    .menu-btn.status {
-      background: #059669;
-    }
-
-    .menu-btn.data {
-      background: #ea580c;
-    }
+    .menu-btn.quest { background: #0284c7; }
+    .menu-btn.equipment { background: #7c3aed; }
+    .menu-btn.status { background: #059669; }
+    .menu-btn.data { background: #ea580c; }
 
     .menu-btn small {
       display: block;
@@ -149,21 +134,6 @@
       margin-top: 12px;
     }
 
-    .login-input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      font-size: 16px;
-      margin-bottom: 12px;
-    }
-
-    .sub-text {
-      font-size: 13px;
-      color: #cbd5e1;
-      margin-top: 8px;
-    }
-
     @media (max-width: 380px) {
       .menu-grid {
         grid-template-columns: 1fr;
@@ -180,29 +150,11 @@
     </div>
 
     <div class="card">
-      <h2 class="section-title">ログイン</h2>
-      <input
-        type="text"
-        id="studentId"
-        class="login-input"
-        placeholder="学籍番号5桁を入力（例: 11062）"
-        maxlength="5"
-        inputmode="numeric"
-      >
-      <button class="menu-btn quest" onclick="login()">
-        🔐 ログイン
-      </button>
-      <div class="sub-text">
-        学籍番号だけの簡単ログインです。同じ端末・同じブラウザでは自動保存されます。
-      </div>
-    </div>
-
-    <div class="card">
       <h2 class="section-title">プレイヤー情報</h2>
 
       <div class="status-row">
-        <span class="status-label">学籍番号</span>
-        <span id="playerName">未ログイン</span>
+        <span class="status-label">名前</span>
+        <span id="playerName">プレイヤー</span>
       </div>
 
       <div class="status-row">
@@ -215,8 +167,42 @@
         <span><span id="playerExp">0</span> / <span id="nextExp">100</span></span>
       </div>
 
+      <div class="status-row">
+        <span class="status-label">称号</span>
+        <span id="playerTitle">見習い検査技師</span>
+      </div>
+
       <div class="bar">
         <div class="bar-inner" id="expBar"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">現在装備</h2>
+
+      <div class="status-row">
+        <span class="status-label">白衣</span>
+        <span id="equipCoat">標準白衣</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">手袋</span>
+        <span id="equipGloves">未装備</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">ゴーグル</span>
+        <span id="equipGoggles">未装備</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">顕微鏡</span>
+        <span id="equipMicroscope">未装備</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">ピペット</span>
+        <span id="equipPipette">未装備</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">バッジ</span>
+        <span id="equipBadge">なし</span>
       </div>
     </div>
 
@@ -231,12 +217,12 @@
 
         <button class="menu-btn equipment" onclick="goEquipment()">
           🛡️ 装備
-          <small>称号・道具を見る</small>
+          <small>所持品・装備変更</small>
         </button>
 
         <button class="menu-btn status" onclick="showStatus()">
           📊 ステータス
-          <small>現在の成長を見る</small>
+          <small>成長状態を見る</small>
         </button>
 
         <button class="menu-btn data" onclick="showSaveData()">
@@ -275,26 +261,77 @@
     <div class="card">
       <h2 class="section-title">案内メッセージ</h2>
       <div class="message-box" id="messageBox">
-        まずは学籍番号でログインしてください。
+        ようこそ。クエストに挑戦したり、装備画面で所持品を確認したりできます。
       </div>
     </div>
 
     <div class="footer-note">
-      今はホーム画面の土台です。あとで装備画面やEXP自動反映を追加できます。
+      装備は端末内に保存されます。あとでクエスト達成に応じた解放も追加できます。
     </div>
   </div>
 
   <script>
-    let player = {
-      name: "",
+    const defaultPlayer = {
+      name: "プレイヤー",
       exp: 0,
-      equipment: "白衣",
-      title: "見習い検査技師"
+      title: "見習い検査技師",
+      equipment: {
+        coat: "標準白衣",
+        gloves: "未装備",
+        goggles: "未装備",
+        microscope: "未装備",
+        pipette: "未装備",
+        badge: "なし"
+      },
+      inventory: {
+        coat: ["標準白衣"],
+        gloves: [],
+        goggles: [],
+        microscope: [],
+        pipette: [],
+        badge: []
+      },
+      lockedItems: {
+        coat: ["高機能白衣"],
+        gloves: ["ラテックス手袋", "ニトリル手袋"],
+        goggles: ["防護ゴーグル"],
+        microscope: ["基礎顕微鏡", "高精度顕微鏡"],
+        pipette: ["標準ピペット", "マイクロピペット"],
+        badge: ["血液検査バッジ", "微生物検査バッジ", "生化学検査バッジ"]
+      }
     };
 
-    const savedPlayer = localStorage.getItem("player");
-    if (savedPlayer) {
-      player = JSON.parse(savedPlayer);
+    let player = loadPlayer();
+
+    function loadPlayer() {
+      const saved = localStorage.getItem("player");
+      if (!saved) {
+        localStorage.setItem("player", JSON.stringify(defaultPlayer));
+        return JSON.parse(JSON.stringify(defaultPlayer));
+      }
+
+      const parsed = JSON.parse(saved);
+
+      return {
+        ...JSON.parse(JSON.stringify(defaultPlayer)),
+        ...parsed,
+        equipment: {
+          ...defaultPlayer.equipment,
+          ...(parsed.equipment || {})
+        },
+        inventory: {
+          ...defaultPlayer.inventory,
+          ...(parsed.inventory || {})
+        },
+        lockedItems: {
+          ...defaultPlayer.lockedItems,
+          ...(parsed.lockedItems || {})
+        }
+      };
+    }
+
+    function savePlayer() {
+      localStorage.setItem("player", JSON.stringify(player));
     }
 
     function getLevel(exp) {
@@ -311,46 +348,26 @@
       const currentExp = player.exp % 100;
       const percent = currentExp;
 
-      document.getElementById("playerName").textContent = player.name || "未ログイン";
+      document.getElementById("playerName").textContent = player.name;
       document.getElementById("playerLevel").textContent = level;
       document.getElementById("playerExp").textContent = player.exp;
       document.getElementById("nextExp").textContent = nextExp;
+      document.getElementById("playerTitle").textContent = player.title;
       document.getElementById("expBar").style.width = percent + "%";
 
-      const studentIdInput = document.getElementById("studentId");
-      if (player.name) {
-        studentIdInput.value = player.name;
-      }
-    }
-
-    function savePlayer() {
-      localStorage.setItem("player", JSON.stringify(player));
+      document.getElementById("equipCoat").textContent = player.equipment.coat;
+      document.getElementById("equipGloves").textContent = player.equipment.gloves;
+      document.getElementById("equipGoggles").textContent = player.equipment.goggles;
+      document.getElementById("equipMicroscope").textContent = player.equipment.microscope;
+      document.getElementById("equipPipette").textContent = player.equipment.pipette;
+      document.getElementById("equipBadge").textContent = player.equipment.badge;
     }
 
     function setMessage(text) {
       document.getElementById("messageBox").textContent = text;
     }
 
-    function login() {
-      const id = document.getElementById("studentId").value.trim();
-
-      if (!/^[0-9]{5}$/.test(id)) {
-        alert("学籍番号は5桁の数字で入力してください");
-        return;
-      }
-
-      player.name = id;
-      savePlayer();
-      updateUI();
-      setMessage("学籍番号 " + id + " でログインしました。クエストに進めます。");
-    }
-
     function goQuest() {
-      if (!player.name) {
-        alert("先に学籍番号でログインしてください");
-        return;
-      }
-
       document.getElementById("questMenu").style.display = "block";
       setMessage("挑戦する難易度を選んでください。");
     }
@@ -361,13 +378,8 @@
     }
 
     function openQuest(level) {
-      if (!player.name) {
-        alert("先に学籍番号でログインしてください");
-        return;
-      }
-
       const urls = {
-        beginner: "https://docs.google.com/forms/d/1br0mN6Gw4L4XhkPxeDjwSu5lx8JX207fyVxiuepKDuc/edit",
+        beginner: "ここに初級フォームURL",
         intermediate: "ここに中級フォームURL",
         advanced: "ここに上級フォームURL"
       };
@@ -381,22 +393,22 @@
     }
 
     function goEquipment() {
-      setMessage("装備画面は次に作成できます。今は白衣と称号のようなデータを保存できます。");
+      location.href = "equipment.html";
     }
 
     function showStatus() {
       const level = getLevel(player.exp);
       setMessage(
-        "学籍番号：" + (player.name || "未ログイン") +
+        "名前：" + player.name +
         " / レベル：" + level +
         " / 総EXP：" + player.exp +
-        " / 称号：" + (player.title || "なし")
+        " / 称号：" + player.title
       );
     }
 
     function showSaveData() {
       const exists = localStorage.getItem("player") ? "保存されています" : "未保存です";
-      setMessage("セーブデータはこの端末のブラウザ内に " + exists + "。別端末共有は今後スプレッドシート連携で対応できます。");
+      setMessage("セーブデータはこの端末のブラウザ内に " + exists + "。");
     }
 
     updateUI();
